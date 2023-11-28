@@ -1,19 +1,20 @@
 {
-  "name": "@actionsflow/trigger-example",
+  "name": "@actionsflow/trigger-pocket",
   "version": "1.0.0",
   "description": "Actionsflow trigger example",
   "keywords": [
-    "example",
+    "pocket",
+    "getpocket",
     "actionsflow",
     "trigger"
   ],
-  "author": "Owen Young <theowenyoung@gmail.com>",
-  "homepage": "https://github.com/actionsflow/actionsflow-trigger-example",
+  "author": "Joseph Chiocchi <joe@yolk.cc>",
+  "homepage": "https://github.com/yyolk/actionsflow-trigger-pocket",
   "license": "MIT",
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actionsflow/actionsflow-trigger-example.git"
+    "url": "git+https://github.com/yyolk/actionsflow-trigger-pocket.git"
   },
   "scripts": {
     "start": "tsc -w",
@@ -28,10 +29,11 @@
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/actionsflow/actionsflow-trigger-example/issues"
+    "url": "https://github.com/yyolk/actionsflow-trigger-pocket/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.5.4"
+    "actionsflow-core": "^1.5.4",
+    "pocket-sdk-typescript": "^0.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
