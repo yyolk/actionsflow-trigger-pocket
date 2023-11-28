@@ -1,6 +1,6 @@
 on:
   pocket:
-    authToken: fakeToken
+    accessToken: fakeToken
     consumerKey: fakeConsumerKey
 jobs:
   print:
