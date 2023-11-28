@@ -5,7 +5,7 @@ import {
   AnyObject,
   ITriggerOptions,
 } from "actionsflow-core";
-import { PocketRetrieveResponse, PocketSDK } from "pocket-sdk-typescript";
+import { PocketRetrieveResponse } from "pocket-sdk-typescript";
 
 
 export default class Pocket implements ITriggerClassType {
@@ -30,7 +30,11 @@ export default class Pocket implements ITriggerClassType {
     // timestamp in seconds - 90_000
     // 90_000s = (25 h) as seconds = (60s * 60m * 25h)s
     const nowMinus25HoursTimestamp = Math.floor(Date.now() / 1000) - (90_000);
-    const response = await new PocketSDK(consumerKey)
+    const response = await new (
+      // This is necessary for the dependency call tree expecting CommonJS and this library being ESM.
+      // I could've probably just did the HTTP call without figuring this out, and saved much more time.
+      await import("pocket-sdk-typescript/dist/lib/sdk.js").then(({default: PocketSDK}) => PocketSDK)
+      )(consumerKey)
       .getItems(authToken, {
         since: nowMinus25HoursTimestamp,
         detailType: "complete",
@@ -43,7 +47,8 @@ export default class Pocket implements ITriggerClassType {
           ...response.list[key],
           // convenience to work with tags as an array of strings
           // and make sure it exists as a property
-          tags: response.list[key].tags? Object.keys(response.list[key].tags) : [],
+          // tags: response.list[key].tags? Object.keys(response.list[key].tags) : [],
+          tags: Object.keys(response.list[key].tags ?? {}),
         }
     });
     return items;
