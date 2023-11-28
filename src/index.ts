@@ -5,7 +5,7 @@ import {
   AnyObject,
   ITriggerOptions,
 } from "actionsflow-core";
-import { PocketSDK } from "pocket-sdk-typescript";
+import { PocketRetrieveResponse, PocketSDK } from "pocket-sdk-typescript";
 
 
 export default class Pocket implements ITriggerClassType {
@@ -35,6 +35,9 @@ export default class Pocket implements ITriggerClassType {
         since: nowMinus25HoursTimestamp,
         detailType: "complete",
       });
+    return this._getItems(response);
+  }
+  _getItems(response: PocketRetrieveResponse): AnyObject[] {
     const items: AnyObject[] = Object.keys(response.list).map(key => {
         return { 
           ...response.list[key],
