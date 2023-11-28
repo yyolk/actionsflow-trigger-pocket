@@ -20,7 +20,7 @@
   "scripts": {
     "start": "tsc -w",
     "build": "tsc",
-    "buildProd": "tsc -p tsconfig.production.json && sed -i 's|export default class|class|' dist/src/index.js && sed -i \"$(( $(wc -l < dist/src/index.js)-1+2 )),$ d\" dist/src/index.js && echo 'exports.default = Pocket;' >> dist/src/index.js && echo '//# sourceMappingURL=index.js.map' >> dist/src/index.js",
+    "buildProd": "tsc -p tsconfig.production.json",
     "clean": "rimraf ./dist",
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src",
