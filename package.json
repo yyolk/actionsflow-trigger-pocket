@@ -34,8 +34,7 @@
     "url": "https://github.com/yyolk/actionsflow-trigger-pocket/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.5.4",
-    "pocket-sdk-typescript": "^0.4.0"
+    "actionsflow-core": "^1.5.4"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
