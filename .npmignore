@@ -1,0 +1,4 @@
+src/
+Dockerfile
+jest.config.js
+.prettierrc
