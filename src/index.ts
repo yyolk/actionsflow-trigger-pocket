@@ -39,6 +39,7 @@ export default class Pocket implements ITriggerClassType {
       // This is necessary for the dependency call tree expecting CommonJS and this library being ESM.
       // See also the package.scripts.buildProd from package.json for the minor structural change 
       // accomplished with sed and echo commandsthat's required to make it work.
+      // In my testing, the full path to sdk.js (including '.js') was always required when called from `actionsflow build`.
       await import("pocket-sdk-typescript/dist/lib/sdk.js").then(({default: PocketSDK}) => PocketSDK)
       )(consumerKey)
       .getItems(authToken, {
