@@ -9,7 +9,7 @@ test("test trigger run", async () => {
     cwd: resolve(__dirname, "fixtures"),
     workflowPath: resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      authToken: "fakeAuthToken",
+      accessToken: "fakeToken",
       consumerKey: "fakeConsumerKey",
     },
   });
