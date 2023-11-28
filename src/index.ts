@@ -16,12 +16,12 @@ export default class Pocket implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   async run(): Promise<AnyObject[]> {
-    const { authToken, consumerKey } = this.options as {
-      authToken?: string;
+    const { accessToken, consumerKey } = this.options as {
+      accessToken?: string;
       consumerKey?: string;
     };
-    if (!authToken) {
-      throw new Error("Missing param authToken!");
+    if (!accessToken) {
+      throw new Error("Missing param accessToken!");
     }
     if (!consumerKey) {
       throw new Error("Missing param consumerKey!");
