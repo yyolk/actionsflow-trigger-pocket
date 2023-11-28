@@ -1,6 +1,7 @@
 on:
-  example:
-    param1: value
+  pocket:
+    authToken: fakeToken
+    consumerKey: fakeConsumerKey
 jobs:
   print:
     name: Print
@@ -8,6 +9,12 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          title: ${{on.example.outputs.title}}
+          title: ${{on.pocket.outputs.resolved_title}}
+          url: ${{on.pocket.outputs.resolved_url}}
+          excerpt: ${{on.pocket.outputs.excerpt}}
+          tags: ${{on.pocket.outputs.tags}}
         run: |
           echo title: $title
+          echo url: $url
+          echo excerpt: $excerpt
+          echo tags: $tags
