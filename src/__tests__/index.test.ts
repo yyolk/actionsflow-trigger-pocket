@@ -1,7 +1,6 @@
 import { resolve } from "path";
 import Trigger from "../index";
-import { getTriggerConstructorParams } from "actionsflow-core";
-import { PocketRetrieveResponse } from "pocket-sdk-typescript";
+import { AnyObject, getTriggerConstructorParams } from "actionsflow-core";
 
 test("test trigger run", async () => {
   const triggerConstructorParams = await getTriggerConstructorParams({
@@ -9,14 +8,14 @@ test("test trigger run", async () => {
     cwd: resolve(__dirname, "fixtures"),
     workflowPath: resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      authToken: "fakeAuthToken",
+      accessToken: "fakeToken",
       consumerKey: "fakeConsumerKey",
     },
   });
   const trigger = new Trigger(triggerConstructorParams);
   // const result = await trigger.run();
   // This can probably be a fixture.
-  const mockResponse: PocketRetrieveResponse = {
+  const mockResponse: AnyObject = {
     "list": {
       "1234567890": {
         item_id: '1234567890',
