@@ -127,9 +127,9 @@ test("test trigger run", async () => {
   expect(triggerResults.length).toBe(2);
   expect(triggerResults[0].resolved_title).toBe("Example Title 1");
   expect(triggerResults[0].resolved_url).toBe("https://example.com/article");
-  expect((triggerResults[0] as { tags?: any[]}).tags?.length).toBe(2);
-  expect((triggerResults[0] as { tags?: any[] }).tags?.[1]).toBe("tag1");
-  expect((triggerResults[0] as { tags?: any[]}).tags?.[1]).toBe("tag2");
-  expect((triggerResults[1] as { tags?: any[]}).tags?.length).toBe(2);
-  expect(triggerResults[0].resolved_title).toBe("Example Title 2");
+  expect((triggerResults[0] as { tags?: any[] }).tags?.length).toBe(2);
+  expect((triggerResults[0] as { tags?: any[] }).tags?.[0]).toBe("tag1");
+  expect((triggerResults[0] as { tags?: any[] }).tags?.[1]).toBe("tag2");
+  expect((triggerResults[1] as { tags?: any[] }).tags?.length).toBe(2);
+  expect(triggerResults[1].resolved_title).toBe("Example Title 2");
 });
