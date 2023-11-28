@@ -5,7 +5,6 @@ import {
   AnyObject,
   ITriggerOptions,
 } from "actionsflow-core";
-import { PocketRetrieveResponse } from "pocket-sdk-typescript";
 
 
 export default class Pocket implements ITriggerClassType {
@@ -48,8 +47,7 @@ export default class Pocket implements ITriggerClassType {
       });
     return this._getItems(response);
   }
-  _getItems(response: PocketRetrieveResponse): AnyObject[] {
-    const items: AnyObject[] = Object.keys(response.list).map(key => {
+  _getItems(response: AnyObject): AnyObject[] {
         return { 
           ...response.list[key],
           // Convenience to work with tags as an array of strings and make sure it exists as a property.
