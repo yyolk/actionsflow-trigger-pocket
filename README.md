@@ -1,26 +1,35 @@
-# `@actionsflow/trigger-example`
+# `@actionsflow/trigger-pocket`
 
-This is an [Actionsflow](https://github.com/actionsflow/actionsflow) example trigger.
+This is an [Actionsflow](https://github.com/actionsflow/actionsflow) trigger for [Pocket](https://getpocket.com).
 
 ## Install
 
 ```bash
-npm i @actionsflow/trigger-example
+npm i @actionsflow/trigger-pocket
 ```
 
 ## Usage
 
 ```yaml
 on:
-  example:
-    param1: value1
+  pocket:
+    authToken: ${{ secrets.POCKET_AUTH_TOKEN }}
+    consumerKey: ${{ secrets.POCKET_CONSUMER_KEY }}
 ```
 
 ## Options
 
-- `param1`, optional, describe your param
+- `authToken`, required, an authentication token to the desired Pocket account.
+- `consumerKey`, required, the associated consumer key that the authentication was issued against.
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
+
+* * *
+
+> [!IMPORTANT]  
+> The rest of this README has to be refactored.
+
+* * * 
 
 ## Outputs
 
