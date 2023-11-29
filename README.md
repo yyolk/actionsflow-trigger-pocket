@@ -19,7 +19,7 @@ on:
 
 ## Options
 
-- `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo)
+- `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo).
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
