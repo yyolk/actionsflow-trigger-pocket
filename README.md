@@ -49,9 +49,13 @@ An outputs example:
   "tags": [
     "tag1", "tag2"
   ],  // Reshaped tags from response to simplify parsing.
-  "authors": [{"1": {}}], // A JSON object listing all of the authors associated with the item.
-  "images": [{"1": {}}], // A JSON object listing all of the images associated with the item.
-  "videos": [{"1": {}}]  // A JSON object listing all of the images associated with the item.
+  "time_added": "1701082956",  // Timestamp of time added (unit=seconds)
+  "time_updated": "1701082977",  // Timestamp of time updated (unit=seconds)
+  "time_favorited": "0",  // Timestamp of time when item was favorited (if favorite), 0 if never
+  "time_read": "0",  // Timestamp of time when item was read (if read, in archive), 0 if never
+  "authors": [{"1": {}}], // A JSON object listing all of the authors associated with the item
+  "images": [{"1": {}}], // A JSON object listing all of the images associated with the item
+  "videos": [{"1": {}}]  // A JSON object listing all of the images associated with the item
 }
 ```
 
