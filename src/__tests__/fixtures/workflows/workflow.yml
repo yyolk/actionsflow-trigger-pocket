@@ -9,10 +9,10 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          title: ${{on.pocket.outputs.resolved_title}}
-          url: ${{on.pocket.outputs.resolved_url}}
+          title: ${{on.pocket.outputs.given_title}}
+          url: ${{on.pocket.outputs.given_url}}
           excerpt: ${{on.pocket.outputs.excerpt}}
-          tags: ${{on.pocket.outputs.tags}}
+          tags: ${{join(on.pocket.outputs.tags, ', ')}}
         run: |
           echo title: $title
           echo url: $url
