@@ -53,9 +53,21 @@ An outputs example:
   "time_updated": "1701082977",  // Timestamp of time updated (unit=seconds)
   "time_favorited": "0",  // Timestamp of time when item was favorited (if favorite), 0 if never
   "time_read": "0",  // Timestamp of time when item was read (if read, in archive), 0 if never
-  "authors": [{"1": {}}], // A JSON object listing all of the authors associated with the item
-  "images": [{"1": {}}], // A JSON object listing all of the images associated with the item
-  "videos": [{"1": {}}]  // A JSON object listing all of the images associated with the item
+  "image": {  // The main image Pocket associates with the article
+    "item_id": "12345678901234",
+    "src": "https://placekitten.com/500",
+    "width": "500",
+    "height": "500"
+  },
+  "images": {  // A JSON object listing all of the images associated with the item
+    "1": {
+      "item_id": "12345678901234",
+      "src": "..."
+      },
+      "2": {}
+    },
+  "videos": {"1": {}},  // A JSON object listing all of the images associated with the item
+  "authors": {"1": {}} // A JSON object listing all of the authors associated with the item
 }
 ```
 
