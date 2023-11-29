@@ -24,12 +24,6 @@ on:
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
-* * *
-
-> [!IMPORTANT]  
-> The rest of this README has to be refactored.
-
-* * * 
 
 ## Outputs
 
