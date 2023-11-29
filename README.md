@@ -5,8 +5,10 @@ This is an [Actionsflow](https://github.com/actionsflow/actionsflow) trigger for
 ## Install
 
 ```bash
-npm i @actionsflow/trigger-pocket
+# npm i @actionsflow/trigger-pocket
+npm i --save-dev https://github.com/yyolk/actionsflow-trigger-pocket/releases/download/1.1.0/actionsflow-trigger-pocket-1.1.0.tgz
 ```
+> See [#2](https://github.com/yyolk/actionsflow-trigger-pocket/issues/2), for reasoning around using installation using the `.tgz` release.
 
 ## Usage
 
