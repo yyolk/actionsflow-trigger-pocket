@@ -17,12 +17,16 @@ on:
   pocket:
     accessToken: ${{ secrets.POCKET_ACCESS_TOKEN }}
     consumerKey: ${{ secrets.POCKET_CONSUMER_KEY }}
+    count: 10
+    hoursAgo: 25
 ```
 
 ## Options
 
 - `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo).
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
+- `count`, optional, the amount of entries to limit the fetch to
+- `hoursAgo`, optional, how many hours ago to limit the fetch to
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
