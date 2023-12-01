@@ -15,11 +15,13 @@ export default class Pocket implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   async run(): Promise<AnyObject[]> {
-    const { accessToken, consumerKey, count, hoursAgo } = this.options as {
+    const { accessToken, consumerKey, contentType, count, sinceHoursAgo, tag } = this.options as {
       accessToken?: string;
       consumerKey?: string;
+      contentType?: "video" | "image" | "article";
       count?: number;
-      hoursAgo?: number;
+      sinceHoursAgo?: number;
+      tag?: string;
     };
     if (!accessToken) {
       throw new Error("Missing param accessToken!");
@@ -32,12 +34,16 @@ export default class Pocket implements ITriggerClassType {
       consumer_key: consumerKey,
       access_token: accessToken,
       detailType: "complete",
-      // Limit results if provided.
-      ...((c?: number) => {return !c ? {} : {count: c}})(count),
-      // Calculate `now()` minus 25 hours as seconds.
-      // timestamp_in_seconds - 90_000
-      // 90_000s = (25 h) as seconds = (60s * 60m * 25h)s
-      ...((h?: number) => {return !h ? {} : {since: Math.floor(Date.now() / 1000) - (60 * 60 * h)}})(hoursAgo),
+      // Get only items of contentType.
+      ...((ct?: string) => { return !ct ? {} : { contentType: ct }; })(contentType),
+      // Limit results to count if provided.
+      ...((c?: number) => { return !c ? {} : { count: c }; })(count),
+      // Limit results to sinceHoursAgo
+      // (sinceHoursAgo hours) as seconds = (60 * 60 * sinceHoursAgo)
+      // (Date.now() as seconds) - (sinceHoursAgo as seconds) == timeStampAsSeconds
+      ...((h?: number) => { return !h ? {} : { since: Math.floor(Date.now() / 1000) - (60 * 60 * h) }; })(sinceHoursAgo),
+      // Get only items with tag.
+      ...((t?: string) => { return !t ? {} : { tag: t }; })(tag),
     }
     const response = await this.helpers.axios.post("https://getpocket.com/v3/get", params)
     return this._getItems(response.data);

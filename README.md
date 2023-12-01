@@ -18,15 +18,22 @@ on:
     accessToken: ${{ secrets.POCKET_ACCESS_TOKEN }}
     consumerKey: ${{ secrets.POCKET_CONSUMER_KEY }}
     count: 10
-    hoursAgo: 25
+    contentType: article
+    sinceHoursAgo: 25
+    tag: ai
 ```
 
 ## Options
 
 - `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo).
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
+- `contentType`, optional, one of three values are allowed: 
+  - `article` - only return articles
+  - `video` - only return videos or articles with embedded videos
+  - `image` - only return images
 - `count`, optional, the amount of entries to limit the fetch to
-- `hoursAgo`, optional, how many hours ago to limit the fetch to
+- `sinceHoursAgo`, optional, since how many hours ago to limit the fetch to
+- `tag`, optional, only fetch items with *tag*, set to `_untagged_` to fetch untagged
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
