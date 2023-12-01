@@ -48,7 +48,7 @@ export default class Pocket implements ITriggerClassType {
       ...((h?: number) => {
         return !h ? {} : { since: Math.floor(Date.now() / 1000) - 60 * 60 * h };
       })(sinceHoursAgo),
-      // Get only items with tag.
+      // Limit results to tag or _untagged_ for only untagged
       ...((t?: string) => {
         return !t ? {} : { tag: t };
       })(tag),
