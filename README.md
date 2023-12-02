@@ -119,7 +119,10 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 > Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools.
 
 > [!IMPORTANT]
-> The process below is manual, the obtained `access_token` is for the authorizing user if it expires you will need to obtain it again following the same instructions
+> If the obtained `access_token` expires you will need to obtain it again. You can follow the same instructions.
+
+> [!IMPORTANT]
+> The request token and codes may time out before you compleete the next step. Use a text file to stage your commands so Pocket doesn't invalidate the flow for timing out.
 
 
 1. **Obtain a platform consumer key.**
@@ -150,9 +153,9 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 4. **Open the URL in a web browser.**
   - Authorize the application, logging in to your account if necessary.
   - Once authorized, you'll be redirected.
-  
-    > [!TIP]
-    > You don't need to let the page load if you're running it to a non-existant address like `http://localhost:31337`, just proceed to the next step.
+
+> [!TIP]
+> You don't need to let the page load if you're redirecting to a non-existant address like `http://localhost:31337`.
 
 5. **Convert the authorized request token into an access token.**
   - Once authorized, the `request_token` can be used to retrieve your user's `access_token`.
@@ -174,8 +177,8 @@ In order to retrieve your `access_token`, you can follow these instructions or r
       Note your authorized `access_token`.
 
 6. **Add secrets to your Actionsflow repository.**
-    > [!WARNING]
-    > Anyone with the `access_token` and `consumer_key` will have write access to Pocket account. 
+> [!WARNING]
+> Anyone with the `access_token` and `consumer_key` will have write access to Pocket account. 
   - Make new secrets on your Actionsflow repository under *Secrets and Variables* for *Actions* or add the path `/settings/secrets/actions` to the base URL of your repository like:
 
         https://github.com/{user}/{repo}/settings/secrets/actions
