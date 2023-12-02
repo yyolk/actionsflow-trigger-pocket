@@ -25,7 +25,7 @@ on:
 
 ## Options
 
-- `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo).
+- `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the instructions below](#retrieving-your-pocket-access-token).
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
 - `contentType`, optional, one of three values are allowed: 
   - `article` - only return articles
@@ -110,3 +110,75 @@ jobs:
           echo excerpt: $excerpt
           echo tags: $tags
 ```
+
+## Retrieving Your Pocket Access Token
+
+In order to retrieve your `access_token`, you can follow these instructions or refer directly to the [getpocket developer docs on authentication](https://getpocket.com/developer/docs/authentication).
+
+> [!TIP]
+> Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools.
+
+> [!IMPORTANT]
+> The process below is manual, the obtained `access_token` is for the authorizing user if it expires you will need to obtain it again following the same instructions
+
+
+1. **Obtain a platform consumer key.**
+  - Set up a developer app at https://getpocket.com/developer/apps/new if you haven't already.
+  - Set `redirect_uri` to `http://localhost:31337` or obtain a new hook from `https://webhook.site`, this is unimportant, we will manually fetch the `access_token` from the auth endpoint in the ext steps
+  - Note the `consumer_key` and `redirect_uri` from this application for the next steps.
+
+2. **Obtain a request token.**
+  - Use the following `curl` command to obtain a request token:
+
+        curl -X POST \
+        -H 'Content-Type: application/json' \
+        -d '{
+          "consumer_key": "1234-abcd1234abcd1234abcd1234", 
+          "redirect_uri": "http://localhost:31337"
+        }' \
+        https://getpocket.com/v3/oauth/request
+      
+    You'll receive a response like:
+
+        code=dcba4321-dcba-4321-dcba-4321dc
+
+3. **Construct your authorize request URL.**
+  - Using the following template, fill in `YOUR_REQUEST_TOKEN` & `YOUR_REDIRECT_URI`:
+
+        https://getpocket.com/auth/authorize?request_token=YOUR_REQUEST_TOKEN&redirect_uri=YOUR_REDIRECT_URI
+
+4. **Open the URL in a web browser.**
+  - Authorize the application, logging in to your account if necessary.
+  - Once authorized, you'll be redirected.
+  
+    > [!TIP]
+    > You don't need to let the page load if you're running it to a non-existant address like `http://localhost:31337`, just proceed to the next step.
+
+5. **Convert the authorized request token into an access token.**
+  - Once authorized, the `request_token` can be used to retrieve your user's `access_token`.
+  - Use the following `curl` command to retrieve it:
+
+        curl -X POST \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+            "consumer_key": "1234-abcd1234abcd1234abcd1234",
+            "code": "dcba4321-dcba-4321-dcba-4321dc"
+        }' \
+        https://getpocket.com/v3/oauth/authorize
+
+      You'll receive a successful response like:
+
+        {"access_token":"5678defg-5678-defg-5678-defg56","username":"pocketuser"}
+
+      Note your authorized `access_token`.
+
+6. **Add secrets to your Actionsflow repository.**
+    > [!WARNING]
+    > Anyone with the `access_token` and `consumer_key` will have write access to Pocket account. 
+  - Make new secrets on your Actionsflow repository under *Secrets and Variables* for *Actions* or add the path `/settings/secrets/actions` to the base URL of your repository like:
+
+        https://github.com/{user}/{repo}/settings/secrets/actions
+
+7. **You're done!**
+  - You can now `pocket` trigger the necessary `accessToken` and `consumerKey` in your [Actionsflows](https://github.com/actionsflow/actionsflow).
