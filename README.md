@@ -118,18 +118,18 @@ jobs:
 In order to retrieve your `access_token`, you can follow these instructions or refer directly to the [getpocket developer docs on authentication](https://getpocket.com/developer/docs/authentication).
 
 > [!TIP]
-> Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools.
+> Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools. It's simpler to avoid using them and following manual instructions using `curl` below.
 
 > [!NOTE]
-> Pocket does not describe any method to refresh the token. I believe the token is valid until the user (you) remove the app from your Pocket account. If the obtained `access_token` expires (from a TTL expiry) you will need to obtain it again. You may follow the same instructions for doing so.
+> Pocket does not describe any method to refresh the token. In all likelihood the token is valid until the user (you) remove the app from your Pocket account. If the obtained `access_token` expires (from a TTL expiry) you will need to obtain it again. Follow the same instructions for doing so.
 
 > [!IMPORTANT]
-> Recommend use of a text file to stage the cli commands so Pocket doesn't invalidate the flow for timing out. If you don't authorize the `request_token` before the timeout (Step 3), start over. If you don't request the `access_token` before the timeout (Step 5), start over.
+> If you don't authorize the `request_token` before the timeout (Step 3), start over. If you don't request the `access_token` before the timeout (Step 5), start over. Recommend use of an opened text editor with all commands so you can quickly edit the URL or command and then use it, so Pocket doesn't invalidate the flow for timing out.
 
 
 1. **Obtain a platform consumer key.**
   - Set up a developer app at https://getpocket.com/developer/apps/new if you haven't already.
-  - Set `redirect_uri` to `http://localhost:31337` or obtain a new hook from `https://webhook.site`, this is unimportant, we will manually fetch the `access_token` from the auth endpoint in the ext steps
+  - Set `redirect_uri` to `http://localhost:31337` or obtain a new hook from `https://webhook.site`, this is unimportant, we will manually fetch the `access_token` from the auth endpoint in the next steps.
   - Note the `consumer_key` and `redirect_uri` from this application for the next steps.
 
 2. **Obtain a request token.**
