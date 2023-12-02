@@ -29,6 +29,8 @@ export default class Pocket implements ITriggerClassType {
     if (!consumerKey) {
       throw new Error("Missing param consumerKey!");
     }
+    const pocketRetrieveEndpoint = "https://getpocket.com/v3/get";
+
 
     const params = {
       consumer_key: consumerKey,
@@ -54,7 +56,7 @@ export default class Pocket implements ITriggerClassType {
       })(tag),
     };
     const response = await this.helpers.axios.post(
-      "https://getpocket.com/v3/get",
+      pocketRetrieveEndpoint,
       params
     );
     return this._getItems(response.data);
