@@ -180,7 +180,7 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 
 6. **Add secrets to your Actionsflow repository.**
 > [!WARNING]
-> Anyone with the `access_token` and `consumer_key` will have write access to Pocket account. 
+> Anyone with the `access_token` and `consumer_key` will have write access to the Pocket account. 
   - Make new secrets on your Actionsflow repository under *Secrets and Variables* for *Actions* or add the path `/settings/secrets/actions` to the base URL of your repository like:
 
         https://github.com/{user}/{repo}/settings/secrets/actions
