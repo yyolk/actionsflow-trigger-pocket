@@ -183,5 +183,16 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 
         https://github.com/{user}/{repo}/settings/secrets/actions
 
+  - Recommend creating secrets with the names:
+
+        POCKET_ACCESS_TOKEN
+        POCKET_CONSUMER_KEY
+
+
+  - After creation, access the secrets like in [**Usage**](#usage):
+
+        accessToken: ${{ secrets.POCKET_ACCESS_TOKEN }}
+        consumerKey: ${{ secrets.POCKET_CONUMSER_KEY }}
+
 7. **You're done!**
   - You can now `pocket` trigger the necessary `accessToken` and `consumerKey` in your [Actionsflows](https://github.com/actionsflow/actionsflow).
