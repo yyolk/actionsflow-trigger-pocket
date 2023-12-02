@@ -120,10 +120,10 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 > [!TIP]
 > Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools.
 
-> [!IMPORTANT]
-> If the obtained `access_token` expires you will need to obtain it again. You can follow the same instructions.
+> [!NOTE]
+> Pocket does not describe any method to refresh the token. I believe the token is valid until the user (you) remove the app from your Pocket account. If the obtained `access_token` expires (from a TTL expiry) you will need to obtain it again. You may follow the same instructions for doing so.
 
-> [!WARNING]
+> [!IMPORTANT]
 > Recommend use of a text file to stage the cli commands so Pocket doesn't invalidate the flow for timing out. If you don't authorize the `request_token` before the timeout (Step 3), start over. If you don't request the `access_token` before the timeout (Step 5), start over.
 
 
