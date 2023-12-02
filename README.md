@@ -129,6 +129,7 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 
 1. **Obtain a platform consumer key.**
   - Set up a developer app at https://getpocket.com/developer/apps/new if you haven't already.
+    - You'll need at least `Retrieve` permissions. You might want to set more if you plan on doing more things.
   - Set `redirect_uri` to `http://localhost:31337` or obtain a new hook from `https://webhook.site`, this is unimportant, we will manually fetch the `access_token` from the auth endpoint in the next steps.
   - Note the `consumer_key` and `redirect_uri` from this application for the next steps.
 
@@ -180,7 +181,7 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 
 6. **Add secrets to your Actionsflow repository.**
 > [!WARNING]
-> Anyone with the `access_token` and `consumer_key` will have write access to the Pocket account. 
+> Anyone with the `access_token` and `consumer_key` will have access to the Pocket account.
   - Make new secrets on your Actionsflow repository under *Secrets and Variables* for *Actions* or add the path `/settings/secrets/actions` to the base URL of your repository like:
 
         https://github.com/{user}/{repo}/settings/secrets/actions
