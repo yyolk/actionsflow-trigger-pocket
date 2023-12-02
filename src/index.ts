@@ -31,29 +31,28 @@ export default class Pocket implements ITriggerClassType {
     }
     const pocketRetrieveEndpoint = "https://getpocket.com/v3/get";
 
+    const optionalParam = (o: AnyObject): AnyObject => {
+      return !Object.values(o)[0] ? {} : o;
+    };
 
     const params = {
       consumer_key: consumerKey,
       access_token: accessToken,
       detailType: "complete",
-      // Get only items of contentType.
-      ...((ct?: string) => {
-        return !ct ? {} : { contentType: ct };
-      })(contentType),
-      // Limit results to count if provided.
-      ...((c?: number) => {
-        return !c ? {} : { count: c };
-      })(count),
+      // Get only items of contentType
+      ...optionalParam({ contentType }),
+      // Limit results to count
+      ...optionalParam({ count }),
       // Limit results to sinceHoursAgo
       // (sinceHoursAgo hours) as seconds = (60 * 60 * sinceHoursAgo)
       // (Date.now() as seconds) - (sinceHoursAgo as seconds) == timeStampAsSeconds
-      ...((h?: number) => {
-        return !h ? {} : { since: Math.floor(Date.now() / 1000) - 60 * 60 * h };
-      })(sinceHoursAgo),
+      ...optionalParam(
+        sinceHoursAgo
+          ? { since: Math.floor(Date.now() / 1000) - 60 * 60 * sinceHoursAgo }
+          : {}
+      ),
       // Limit results to tag or _untagged_ for only untagged
-      ...((t?: string) => {
-        return !t ? {} : { tag: t };
-      })(tag),
+      ...optionalParam({ tag }),
     };
     const response = await this.helpers.axios.post(
       pocketRetrieveEndpoint,
