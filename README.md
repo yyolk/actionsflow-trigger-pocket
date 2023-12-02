@@ -123,8 +123,8 @@ In order to retrieve your `access_token`, you can follow these instructions or r
 > [!IMPORTANT]
 > If the obtained `access_token` expires you will need to obtain it again. You can follow the same instructions.
 
-> [!IMPORTANT]
-> The request token and codes may time out before you compleete the next step. Use a text file to stage your commands so Pocket doesn't invalidate the flow for timing out.
+> [!WARNING]
+> Recommend use of a text file to stage the cli commands so Pocket doesn't invalidate the flow for timing out. If you don't authorize the `request_token` before the timeout (Step 3), start over. If you don't request the `access_token` before the timeout (Step 5), start over.
 
 
 1. **Obtain a platform consumer key.**
