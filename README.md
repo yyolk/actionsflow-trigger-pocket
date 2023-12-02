@@ -199,4 +199,4 @@ In order to retrieve your `access_token`, you can follow these instructions or r
         consumerKey: ${{ secrets.POCKET_CONUMSER_KEY }}
 
 7. **You're done!**
-  - You can now `pocket` trigger the necessary `accessToken` and `consumerKey` in your [Actionsflows](https://github.com/actionsflow/actionsflow).
+  - The `pocket` trigger now has the necessary `accessToken` and `consumerKey` to trigger your [Actionsflows](https://github.com/actionsflow/actionsflow).
