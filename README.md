@@ -26,9 +26,9 @@ on:
 ## Options
 
 - `accessToken`, required, an authentication token to the desired Pocket account.
-> [!IMPORTANT]
-> You'll need to provision one, [follow the instructions below](#retrieving-your-pocket-access-token).
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
+> [!IMPORTANT]
+> To obtain the `accessToken` & `consumerKey` required options, [follow the instructions below](#retrieving-your-pocket-access-token).
 - `contentType`, optional, one of three values are allowed: 
   - `article` - only return articles
   - `video` - only return videos or articles with embedded videos
