@@ -5,7 +5,7 @@ This is an [Actionsflow](https://github.com/actionsflow/actionsflow) trigger for
 ## Install
 
 ```bash
-# npm i @actionsflow/trigger-pocket
+# npm i --save-dev @actionsflow/trigger-pocket
 npm i --save-dev https://github.com/yyolk/actionsflow-trigger-pocket/releases/download/1.1.0/actionsflow-trigger-pocket-1.1.0.tgz
 ```
 > See [#2](https://github.com/yyolk/actionsflow-trigger-pocket/issues/2), for reasoning around using installation using the `.tgz` release.
@@ -17,12 +17,25 @@ on:
   pocket:
     accessToken: ${{ secrets.POCKET_ACCESS_TOKEN }}
     consumerKey: ${{ secrets.POCKET_CONSUMER_KEY }}
+    count: 10
+    contentType: article
+    sinceHoursAgo: 25
+    tag: ai
 ```
 
 ## Options
 
-- `accessToken`, required, an authentication token to the desired Pocket account. You'll need to provision one, [follow the (TODO) instructions](#todo).
+- `accessToken`, required, an authentication token to the desired Pocket account.
 - `consumerKey`, required, the associated consumer key that the authentication was issued against.
+> [!IMPORTANT]
+> To obtain the `accessToken` & `consumerKey` required options, [follow the instructions below](#retrieving-your-pocket-access-token).
+- `contentType`, optional, one of three values are allowed: 
+  - `article` - only return articles
+  - `video` - only return videos or articles with embedded videos
+  - `image` - only return images
+- `count`, optional, the amount of entries to limit the fetch to
+- `sinceHoursAgo`, optional, since how many hours ago to limit the fetch to
+- `tag`, optional, only fetch items with *tag*, set to `_untagged_` to fetch untagged
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
@@ -99,3 +112,91 @@ jobs:
           echo excerpt: $excerpt
           echo tags: $tags
 ```
+
+## Retrieving Your Pocket Access Token
+
+In order to retrieve your `access_token`, you can follow these instructions or refer directly to the [getpocket developer docs on authentication](https://getpocket.com/developer/docs/authentication).
+
+> [!TIP]
+> Pocket uses different variable names in it's OAuth2 flow. YMMV with OAuth developer tools. It's simpler to avoid using them and following manual instructions using `curl` below.
+
+> [!NOTE]
+> Pocket does not describe any method to refresh the token. In all likelihood the token is valid until the user (you) remove the app from your Pocket account. If the obtained `access_token` expires (from a TTL expiry) you will need to obtain it again. Follow the same instructions for doing so.
+
+> [!IMPORTANT]
+> If you don't authorize the `request_token` before the timeout (Step 3), start over. If you don't request the `access_token` before the timeout (Step 5), start over. Recommend use of an opened text editor with all commands so you can quickly edit the URL or command and then use it, so Pocket doesn't invalidate the flow for timing out.
+
+
+1. **Obtain a platform consumer key.**
+  - Set up a developer app at https://getpocket.com/developer/apps/new if you haven't already.
+    - You'll need at least `Retrieve` (read only) permissions.
+      - It may be a good idea to include all permissions if you plan on doing more with Pocket and Actionsflow and don't want to manage multiple secrets in the repository for one service.
+  - Set `redirect_uri` to `http://localhost:31337` or obtain a new hook from `https://webhook.site`, this is unimportant, we will manually fetch the `access_token` from the auth endpoint in the next steps.
+  - Note the `consumer_key` and `redirect_uri` from this application for the next steps.
+
+2. **Obtain a request token.**
+  - Use the following `curl` command to obtain a request token:
+
+        curl -X POST \
+        -H 'Content-Type: application/json' \
+        -d '{
+          "consumer_key": "1234-abcd1234abcd1234abcd1234", 
+          "redirect_uri": "http://localhost:31337"
+        }' \
+        https://getpocket.com/v3/oauth/request
+      
+    You'll receive a response like:
+
+        code=dcba4321-dcba-4321-dcba-4321dc
+
+3. **Construct your authorize request URL.**
+  - Using the following template, fill in `YOUR_REQUEST_TOKEN` & `YOUR_REDIRECT_URI`:
+
+        https://getpocket.com/auth/authorize?request_token=YOUR_REQUEST_TOKEN&redirect_uri=YOUR_REDIRECT_URI
+
+4. **Open the URL in a web browser.**
+  - Authorize the application, logging in to your account if necessary.
+  - Once authorized, you'll be redirected.
+
+> [!TIP]
+> You don't need to let the page load if you're redirecting to a non-existant address like `http://localhost:31337`.
+
+5. **Convert the authorized request token into an access token.**
+  - Once authorized, the `request_token` can be used to retrieve your user's `access_token`.
+  - Use the following `curl` command to retrieve it:
+
+        curl -X POST \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+            "consumer_key": "1234-abcd1234abcd1234abcd1234",
+            "code": "dcba4321-dcba-4321-dcba-4321dc"
+        }' \
+        https://getpocket.com/v3/oauth/authorize
+
+      You'll receive a successful response like:
+
+        {"access_token":"5678defg-5678-defg-5678-defg56","username":"pocketuser"}
+
+      Note your authorized `access_token`.
+
+6. **Add secrets to your Actionsflow repository.**
+> [!WARNING]
+> Anyone with the `access_token` and `consumer_key` will have access to the Pocket account.
+  - Make new secrets on your Actionsflow repository under *Secrets and Variables* for *Actions* or add the path `/settings/secrets/actions` to the base URL of your repository like:
+
+        https://github.com/{user}/{repo}/settings/secrets/actions
+
+  - Recommend creating secrets with the names:
+
+        POCKET_ACCESS_TOKEN
+        POCKET_CONSUMER_KEY
+
+
+  - After creation, access the secrets like in [**Usage**](#usage):
+
+        accessToken: ${{ secrets.POCKET_ACCESS_TOKEN }}
+        consumerKey: ${{ secrets.POCKET_CONUMSER_KEY }}
+
+7. **You're done!**
+  - The `pocket` trigger now has the necessary `accessToken` and `consumerKey` to trigger your [Actionsflows](https://github.com/actionsflow/actionsflow).
