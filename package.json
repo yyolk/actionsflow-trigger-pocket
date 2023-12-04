@@ -25,7 +25,9 @@
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src",
     "prepublishOnly": "npm run buildProd",
-    "test": "jest"
+    "test": "jest",
+    "dockerBuild": "docker build -t actionsflow-trigger-pocket .",
+    "dockerRun": "docker run --rm -it actionsflow-trigger-pocket"
   },
   "publishConfig": {
     "access": "public"
